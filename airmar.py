@@ -8,7 +8,7 @@ import time
 
 import weewx.drivers
 
-DRIVER_NAME = 'Airmar'
+DRIVER_NAME = 'Airmar 120wx'
 DRIVER_VERSION = '0.26'
 
 INHG_PER_BAR = 29.5333727
@@ -23,9 +23,6 @@ def loader(config_dict, _):
 def confeditor_loader():
     return AirmarConfEditor()
 
-
-DEFAULT_PORT = '/dev/ttyS0'
-
 def logmsg(level, msg):
     syslog.syslog(level, 'airmar: %s' % msg)
 
@@ -38,22 +35,21 @@ def loginf(msg):
 def logerr(msg):
     logmsg(syslog.LOG_ERR, msg)
 
-
 class Airmar(weewx.drivers.AbstractDevice):
     """weewx driver that communicates with an Airmar Weather Station
 
-    model: station model, e.g., 'Airmar 150WX'
-    [Optional. Default is 'Airmar']
+    model: station model, e.g., 'Airmar 120WX'
+    [Optional. Default is 'Airmar 120WX']
 
     port - serial port
-    [Required. Default is /dev/ttyS0]
+    [Required. Default is /dev/ttyUSB0]
 
     max_tries - how often to retry serial communication before giving up
     [Optional. Default is 10]
     """
     def __init__(self, **stn_dict):
-        self.model = stn_dict.get('model', 'Airmar')
-        self.port = stn_dict.get('port', DEFAULT_PORT)
+        self.model = stn_dict.get('model', 'Airmar 120WX')
+        self.port = stn_dict.get('port', '/dev/ttyUSB0')
         self.max_tries = int(stn_dict.get('max_tries', 10))
         self.retry_wait = int(stn_dict.get('retry_wait', 10))
         self.last_rain = None
@@ -88,13 +84,6 @@ class Airmar(weewx.drivers.AbstractDevice):
             yield packet
 
     def _augment_packet(self, packet):
-        # calculate the rain delta from rain total
-        if self.last_rain is not None:
-            packet['rain'] = packet['long_term_rain'] - self.last_rain
-        else:
-            packet['rain'] = None
-        self.last_rain = packet['long_term_rain']
-
         # no wind direction when wind speed is zero
         if 'windSpeed' in packet and not packet['windSpeed']:
             packet['windDir'] = None
