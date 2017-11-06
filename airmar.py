@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+!/usr/bin/env python
 
 
 from __future__ import with_statement
@@ -9,7 +9,7 @@ import time
 import weewx.drivers
 
 DRIVER_NAME = 'Airmar 120wx'
-DRIVER_VERSION = '0.26'
+DRIVER_VERSION = '0.27'
 
 INHG_PER_BAR = 29.5333727
 METER_PER_FOOT = 0.3048
