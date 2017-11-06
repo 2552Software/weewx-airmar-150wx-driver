@@ -167,29 +167,14 @@ class Station(object):
 
     def calc_WCHR(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2]) * 1.8 + 32
-            data['name'] = "windchill_rel"
-        except (ValueError):
-            loginf("Wrong data format for windchill_rel '%s'" % buf[idx-2])
         return data
     
     def calc_WCHT(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2]) * 1.8 + 32
-            data['name'] = "windchill"
-        except (ValueError):
-            loginf("Wrong data format for windchill '%s'" % buf[idx-2])
         return data
     
     def calc_HINX(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2]) * 1.8 + 32
-            data['name'] = "heatindex"
-        except (ValueError):
-            loginf("Wrong data format for heatindex '%s'" % buf[idx-2])
         return data
     
     def calc_STNP(self, buf, idx):
@@ -302,38 +287,18 @@ class Station(object):
     
     def calc_PLAT(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2]) * 1.8 + 32
-            data['name'] = "heatingTemp_plate"
-        except (ValueError):
-            loginf("Wrong data format for heatingTemp_plate '%s'" % buf[idx-2])
         return data
     
     def calc_CAPT(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2]) * 1.8 + 32
-            data['name'] = "heatingTemp_cap"
-        except (ValueError):
-            loginf("Wrong data format for heatingTemp_cap '%s'" % buf[idx-2])
         return data
     
     def calc_PLAV(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2])
-            data['name'] = "heatingVoltage_pl"
-        except (ValueError):
-            loginf("Wrong data format for heatingVoltage_pl '%s'" % buf[idx-2])
         return data
     
     def calc_CAPV(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2])
-            data['name'] = "heatingVoltage_cap"
-        except (ValueError):
-            loginf("Wrong data format for heatingVoltage_cap '%s'" % buf[idx-2])
         return data
     
     def calc_HUMT(self, buf, idx):
@@ -469,14 +434,6 @@ class Station(object):
                 except (IndexError):
                     break
         elif buf[0] == '$WIXDR':
-            if buf[4] == 'RAIN':
-                try:
-                    data['long_term_rain'] = float(buf[2]) * 0.03937007874015748
-                    data['duration_of_rain'] = float(buf[6])
-                    data['rain_intensity'] = float(buf[10]) * 0.03937007874015748
-                    data['peak_rain_intensity'] = float(buf[14]) * 0.03937007874015748
-                except (ValueError):
-                    loginf("Wrong data format for $WIXDR RAIN '%s, %s, %s, %s'" % (buf[2], buf[6], buf[10], buf[14]))
             if buf[4] == 'WNDA':
                 try:
                     data['windAngle_unfilt'] = float(buf[2])
