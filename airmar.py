@@ -319,11 +319,6 @@ class Station(object):
     
     def calc_BRDV(self, buf, idx):
         data = dict()
-        try:
-            data['value'] = float(buf[idx-2])
-            data['name'] = "supplyVoltage"
-        except (ValueError):
-            loginf("Wrong data format for supplyVoltage '%s'" % buf[idx-2])
         return data
 
     #@staticmethod
