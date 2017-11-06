@@ -447,8 +447,8 @@ class AirmarConfEditor(weewx.drivers.AbstractConfEditor):
     # Serial port such as /dev/ttyS0, /dev/ttyUSB0, or /dev/cuaU0
     port = /dev/ttyUSB0
 
-    # The station model, e.g., Airmar 150WX
-    model = Airmar
+    # The station model, e.g., Airmar 120WX
+    model = Airmar120WX
 
     # The driver to use:
     driver = weewx.drivers.airmar
